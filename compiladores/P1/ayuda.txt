@@ -1,0 +1,39 @@
+ print(iterador,Estado)
+        if(cadena[iterador] in Lenguaje.lexemas):
+            if(iterador < len(cadena)):
+                historial+="q"+str(Estado)+"("+cadena[iterador]+")->"
+                x=int(Lenguaje.lexemas[cadena[iterador]])
+                y=int(Estado)
+                transiciones=len(Tabla[x][y])
+                for i in range(0,transiciones):
+                    Estado=Tabla[x][y][i]
+                    Automata(cadena,Lenguaje,Estado,iterador+1,Tabla,historial)
+            else:
+                if(str(Estado) in Lenguaje.final):
+                    historial+="q"+str(Estado)+"("+cadena[iterador]+")"
+                    Lenguaje.cadenas.append(historial)
+                    Lenguaje.flag=True          
+        else: 
+            historial+="q("+str(Estado)+")-"+cadena[iterador]+">"+" Caracter no reconocido en lenguaje" 
+------------------------------------------------------------------------------------------------------------
+    if(len(cadena)!=iterador):
+        if(cadena[iterador] in Lenguaje.lexemas):
+            x=Lenguaje.lexemas[cadena[iterador]]
+            y=Estado
+            Transiciones=len(Tabla[y][x])
+            if(Transiciones==0):
+                Lenguaje.cadenas.append(historial)
+            if(Transiciones==1):
+                Estado=int(Tabla[y][x][0])
+                Automata(cadena,Lenguaje,Estado,iterador+1,Tabla,historial)
+            if(Transiciones>1):
+                for i in range(Transiciones):
+                    Estado=int(Tabla[y][x][i])
+                    historial=historial + "q" + str(Estado) +"(" + cadena[iterador] +")" 
+                    Automata(cadena,Lenguaje,Estado,iterador+1,Tabla,historial)
+    else:
+        if(str(Estado) in Lenguaje.final):
+            Lenguaje.flag=True
+            Lenguaje.cadenas.append(historial)
+
+2103
